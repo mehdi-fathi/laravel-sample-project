@@ -5,13 +5,12 @@ namespace App\Logic;
 
 use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class UserService
  * @package App\Logic
  */
-class UserService
+class UserService extends AppService
 {
 
     /**
@@ -32,11 +31,30 @@ class UserService
     {
         $prev_date = Carbon::now()->subDays($last_days)->toDateTimeString();
 
-        $users = $this->userRepo->getActiveUsersByCntRecently($cnt_posts, $prev_date);
+        $activeUsers = $this->__getActiveUsersCache($cnt_posts, $prev_date);
 
-        return $users;
+        return $activeUsers;
+    }
 
+    /**
+     * @param int $cnt_posts
+     * @param string $prev_date
+     * @return mixed
+     */
+    private function __getActiveUsersCache(int $cnt_posts, string $prev_date): ?array
+    {
+        $key = (string)$cnt_posts . '_' . $prev_date;
+        $activeUsers = $this->getCacheData($key);
 
+        $expCache = 10;
+
+        if (empty($activeUsers)) {
+
+            $activeUsers = $this->userRepo->getActiveUsersByCntRecently($cnt_posts, $prev_date);
+            $this->setCacheData($key, $activeUsers, $expCache);
+
+        }
+        return $activeUsers;
     }
 
 }
