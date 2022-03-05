@@ -3,9 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 
 /**
  * Class EloquentUserRepository
@@ -18,39 +16,13 @@ class EloquentUserRepository implements UserRepository
      */
     protected $model;
 
+    /**
+     * EloquentUserRepository constructor.
+     * @param User $user
+     */
     public function __construct(User $user)
     {
         $this->model = $user;
-    }
-
-    public function all()
-    {
-        return $this->model->all();
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(array $data, $id)
-    {
-        return $this->model->where('id', $id)
-            ->update($data);
-    }
-
-    public function delete($id)
-    {
-        return $this->model->destroy($id);
-    }
-
-    public function find($id)
-    {
-        if (null == $user = $this->model->find($id)) {
-            throw new ModelNotFoundException("User not found");
-        }
-
-        return $user;
     }
 
     /**
@@ -74,7 +46,8 @@ class EloquentUserRepository implements UserRepository
             ->havingRaw(' ( SELECT count(*) ' .
                 ' FROM posts' .
                 ' WHERE posts.user_id = users.id
-                 and CAST(created_at AS DATE) <=' . " '$prev_date' " . ') > ?', [$cnt_posts])->get()->toArray();
+                 and CAST(created_at AS DATE) >=' . " '$prev_date' " . ') > ?', [$cnt_posts])
+            ->get()->toArray();
 
 
         return $data;

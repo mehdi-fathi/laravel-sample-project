@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('posts')->truncate();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 50) as $index) {
 
             $user_id = $index;
 
@@ -36,10 +36,10 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < $total_post; $i++) {
 
                 DB::table('posts')->insert([
-                    'title' => $faker->title,
+                    'title' => $faker->text(10),
                     'user_id' => $user_id,
-                    'created_at' => $faker->date,
-                    'updated_at' => $faker->date,
+                    'created_at' => $faker->dateTimeBetween('-7 days'),
+                    'updated_at' => $faker->dateTimeBetween('-7 days'),
                 ]);
             }
         }
