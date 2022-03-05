@@ -33,8 +33,6 @@ class EloquentUserRepository implements UserRepository
      */
     public function getActiveUsersByCntRecently(int $cnt_posts, string $prev_date, int $expCache = 10)
     {
-        DB::enableQueryLog();
-
         $data = $this->model->query()
             ->select([
                 'users.username',
