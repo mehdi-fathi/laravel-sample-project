@@ -14,5 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+
+    $class = new \App\Logic\UserService();
+
+    dd($class->getActiveUsers(10,7));
+
+
     return view('welcome');
 });
