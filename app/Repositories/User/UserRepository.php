@@ -11,8 +11,7 @@ interface UserRepository
     /**
      * @param int $cnt_posts
      * @param string $prev_date
-     * @param int $expCache
      * @return mixed
      */
-    public function getActiveUsersByCntRecently(int $cnt_posts, string $prev_date, int $expCache = 10);
+    public function getActiveUsersByCntRecently(int $cnt_posts, string $prev_date);
 }
