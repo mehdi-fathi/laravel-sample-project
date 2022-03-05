@@ -20,11 +20,7 @@ class AppServiceProvider extends ServiceProvider
 
         );
 
-
-//        $class = new \App\Logic\UserService(app('App\Repositories\User\UserRepository'));
-
-
-        $this->app->bind('UserService',function (){
+        $this->app->bind('UserService', function () {
             return new \App\Logic\UserService(app('App\Repositories\User\UserRepository'));
         });
 
