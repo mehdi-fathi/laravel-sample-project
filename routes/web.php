@@ -15,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
+//    Redis::set("test",'te');
 
-    $class = new \App\Logic\UserService();
 
-    dd($class->getActiveUsers(10,7));
+//    dd(app('UserService')->getActiveUsers(10,7));
+//
+//    $class = new \App\Logic\UserService(app('App\Repositories\User\UserRepository'));
+
+    dd(app('UserService')->getActiveUsers(10, 7));
 
 
     return view('welcome');
