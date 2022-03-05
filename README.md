@@ -7,5 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Sample Project Laravel
+## Laravel Sample Project
+
+1- ` php artisan migrate`
+
+2- ` php artisan db:seed`
+
+3- ` php artisan job:dispatch getActiveUsersJobs`
 
